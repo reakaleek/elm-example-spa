@@ -3,7 +3,7 @@
 ## Installation
 ```
 npm install
-elm-package install elm-lang/html
+elm-package install
 ```
 
 ## Run dev server
