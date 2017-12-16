@@ -2,6 +2,7 @@
 
 // Require index.html so it gets copied to dist
 require('./index.html');
+require('bulma');
 
 var Elm = require('./elm/Main.elm');
 var mountNode = document.getElementById('main');
