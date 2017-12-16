@@ -1,5 +1,9 @@
 # elm-webpack-boilerplate
 
+##
+https://www.npmjs.com/get-npm
+https://guide.elm-lang.org/install.html
+
 ## Installation
 ```
 npm install
