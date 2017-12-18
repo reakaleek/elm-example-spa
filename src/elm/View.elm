@@ -5,25 +5,61 @@ import Html.Attributes exposing (..)
 import Msg exposing (Msg)
 import Model exposing (Model, Page)
 import Warehouse.View exposing (view)
+import Parcel.View exposing (view)
 
 view : Model -> Html Msg
 view model =
     div []
-        [ renderMenu model
+        [ renderHeader model
         , renderPage model
         ]
 
-
-renderMenu : Model -> Html Msg
-renderMenu model =
-    div [ class "tabs" ]
-        [ 
-            ul [] [ li [ class (getActiveClass model.currentPage "Home") ] [ a [ onClick (Msg.LinkTo "#home") ] [ text "Home" ] ]
-            , li [ class (getActiveClass model.currentPage "Login") ] [ a [ onClick (Msg.LinkTo "#login") ] [ text "Login" ] ]
-            , li [ class (getActiveClass model.currentPage "About") ] [ a [ onClick (Msg.LinkTo "#about") ] [ text "About" ] ]
-            , li [ class (getActiveClass model.currentPage "Warehouse") ] [ a [ onClick (Msg.LinkTo "#warehouse") ] [ text "Warehouse" ] ]
+renderHeader : Model -> Html Msg
+renderHeader model =
+    header [ class "main-header" ] [
+        div [ class "hero is-dark" ] [ 
+            div [ class "hero-body" ] [
+                h1 [ class "title has-text-centered" ] [
+                    span [] [ text "Parcel " ],
+                    span [ class "icon" ] [ i [ class "fa fa-ship"] [] ],
+                    span [] [ text " Logistics" ]
+                ]
+            ],
+            div [ class "hero-foot"] [
+                div [ class "tabs is-centered is-boxed" ] [ 
+                    ul [] [ 
+                        li [ class (getActiveClass model.currentPage "Home") ] [
+                            a [ onClick (Msg.LinkTo "#home") ] [
+                                span [ class "icon" ] [
+                                    i [ class "fa fa-home" ] []
+                                ],
+                                span [] [ text "Home" ] 
+                            ]
+                        ],
+                        li [ class (getActiveClass model.currentPage "Login") ] [ 
+                            a [ onClick (Msg.LinkTo "#login") ] [ text "Login" ]
+                        ],
+                        li [ class (getActiveClass model.currentPage "Parcel") ] [
+                            a [ onClick (Msg.LinkTo "#parcel") ] [
+                                 span [ class "icon" ] [
+                                    i [ class "fa fa-cube" ] []
+                                ],
+                                span [] [ text "Parcel" ] 
+                            ] 
+                        ],
+                        li [ class (getActiveClass model.currentPage "Warehouse") ] [
+                            a [ onClick (Msg.LinkTo "#warehouse") ] [
+                                span [ class "icon" ] [
+                                    i [ class "fa fa-home" ] []
+                                ],
+                                span [] [ text "Warehouse" ] 
+                            ]
+                        ]
+                    ]
+                ]
             ]
         ]
+    ]
 
 getActiveClass: Model.Page -> String -> String
 getActiveClass page pageName =
@@ -34,7 +70,7 @@ getActiveClass page pageName =
 renderPage : Model -> Html Msg
 renderPage model =
     let
-        page_content =
+        pageContent =
             case model.currentPage of
                 Model.Home ->
                     text "Home"
@@ -42,12 +78,13 @@ renderPage model =
                 Model.Login ->
                     text "Login"
 
-                Model.About ->
-                    text "About"
+                Model.Parcel ->
+                    Parcel.View.view model.parcel
+                        |> Html.map Msg.ParcelMsg
                 Model.Warehouse ->
                     Warehouse.View.view model.warehouse
                         |> Html.map Msg.WarehouseMsg
     in
-        section [ class "section" ] [
-            div [ class "container" ] [ page_content ]
+        div [ class "section" ] [
+            div [ class "container"] [ pageContent ]
         ]

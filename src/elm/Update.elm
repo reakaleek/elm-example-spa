@@ -2,8 +2,9 @@ module Update exposing (..)
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Navigation exposing (newUrl)
-import Warehouse.Update as Warehouse exposing (update)
+import Warehouse.Update exposing (update)
 import Warehouse.Command exposing (fetchWarehouse)
+import Parcel.Update exposing (update)
 import Router exposing (initalPageCmd)
 
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
@@ -22,7 +23,12 @@ update msg model =
         Msg.WarehouseMsg subMsg ->
             let 
                 (newModel, newCmd) =
-                    Warehouse.update subMsg model.warehouse
+                    Warehouse.Update.update subMsg model.warehouse
             in
                 ({ model | warehouse = newModel}, Cmd.map Msg.WarehouseMsg newCmd)
-            
+        Msg.ParcelMsg subMsg ->
+            let
+                (newModel, newCmd) =
+                    Parcel.Update.update subMsg model.parcel
+            in
+                ({ model | parcel = newModel}, Cmd.map Msg.ParcelMsg newCmd)

@@ -13,26 +13,28 @@ view model =
                 textarea [ value model.warehouse, class "textarea", rows 12, onInput Warehouse.Msg.Change ] []
             ]
         ],
-        div [] [ text model.response ],
+        div [ class "field"] [
+            p [ class "help" ] [ text model.response ]
+        ],
         div [ class "field is-grouped" ] [
             p [ class "control" ] [ 
                 button [ class "button is-success is-outlined", onClick Warehouse.Msg.PostWarehouse ] [
-                     span [ class "icon"] [
-                         i [ class "fa fa-floppy-o" ] []
-                     ],
-                     span [] [
-                         text "post warehouse"
-                     ] 
+                    span [ class "icon"] [
+                        i [ class "fa fa-floppy-o" ] []
+                    ],
+                    span [] [
+                        text "post warehouse"
+                    ] 
                 ]
             ],
             p [ class "control" ] [ 
                 button [ class "button is-info is-outlined", onClick Warehouse.Msg.GetWarehouse ] [
-                     span [ class "icon"] [
-                         i [ class "fa fa-refresh" ] []
-                     ],
-                     span [] [
-                         text "reload"
-                     ] 
+                    span [ class "icon"] [
+                        i [ class "fa fa-refresh" ] []
+                    ],
+                    span [] [
+                        text "reload"
+                    ] 
                 ]
             ]
         ]

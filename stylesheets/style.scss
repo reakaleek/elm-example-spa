@@ -1,0 +1,10 @@
+.main-header {
+    .hero.is-dark .tabs.is-boxed li.is-active a,
+    .hero.is-dark .tabs.is-boxed li.is-active a:hover,
+    .hero.is-dark .tabs.is-toggle li.is-active a,
+    .hero.is-dark .tabs.is-toggle li.is-active a:hover {
+        background-color: red;
+        border-color: red;
+        color: #363636;
+    }
+}

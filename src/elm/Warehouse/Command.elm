@@ -4,6 +4,7 @@ import Http
 import RemoteData
 import Warehouse.Model exposing (warehouseDecoder)
 import Json.Decode as Decode
+
 fetchWarehouse : Cmd Msg
 fetchWarehouse =
     Http.get "/api/warehouse" warehouseDecoder

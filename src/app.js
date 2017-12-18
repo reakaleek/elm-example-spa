@@ -3,6 +3,7 @@
 // Require index.html so it gets copied to dist
 require('./index.html');
 require('bulma');
+require('../stylesheets/style.scss');
 
 var Elm = require('./elm/Main.elm');
 var mountNode = document.getElementById('main');
