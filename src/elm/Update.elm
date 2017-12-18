@@ -13,7 +13,7 @@ update msg model =
         Msg.GoTo maybepage ->
             case maybepage of
                 Nothing ->
-                    ( { model | currentPage = Model.Home }, Cmd.none )
+                    ( { model | currentPage = Model.Warehouse }, Cmd.none )
 
                 Just page ->                        
                     ({ model | currentPage = page }, initalPageCmd page)

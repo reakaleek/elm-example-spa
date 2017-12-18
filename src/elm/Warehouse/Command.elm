@@ -7,12 +7,12 @@ import Json.Decode as Decode
 
 fetchWarehouse : Cmd Msg
 fetchWarehouse =
-    Http.get "/api/warehouse" warehouseDecoder
+    Http.get "http://best-parcel-logistics.azurewebsites.net/api/warehouse" warehouseDecoder
         |> RemoteData.sendRequest
         |> Cmd.map Msg.OnFetchWarehouse
 
 postWarehouse : String -> Cmd Msg
 postWarehouse str = 
-    Http.post "/api/warehouse" (Http.stringBody "application/json" str) Decode.string
+    Http.post "http://best-parcel-logistics.azurewebsites.net/api/warehouse" (Http.stringBody "application/json" str) Decode.string
         |> RemoteData.sendRequest
         |> Cmd.map Msg.OnResponse

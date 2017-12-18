@@ -28,16 +28,13 @@ renderHeader model =
             div [ class "hero-foot"] [
                 div [ class "tabs is-centered is-boxed" ] [ 
                     ul [] [ 
-                        li [ class (getActiveClass model.currentPage "Home") ] [
-                            a [ onClick (Msg.LinkTo "#home") ] [
+                        li [ class (getActiveClass model.currentPage "Warehouse") ] [
+                            a [ onClick (Msg.LinkTo "#warehouse") ] [
                                 span [ class "icon" ] [
                                     i [ class "fa fa-home" ] []
                                 ],
-                                span [] [ text "Home" ] 
+                                span [] [ text "Warehouse" ] 
                             ]
-                        ],
-                        li [ class (getActiveClass model.currentPage "Login") ] [ 
-                            a [ onClick (Msg.LinkTo "#login") ] [ text "Login" ]
                         ],
                         li [ class (getActiveClass model.currentPage "Parcel") ] [
                             a [ onClick (Msg.LinkTo "#parcel") ] [
@@ -47,12 +44,20 @@ renderHeader model =
                                 span [] [ text "Parcel" ] 
                             ] 
                         ],
-                        li [ class (getActiveClass model.currentPage "Warehouse") ] [
-                            a [ onClick (Msg.LinkTo "#warehouse") ] [
+                        li [ class (getActiveClass model.currentPage "TrackingInformation") ] [
+                            a [ onClick (Msg.LinkTo "#tracking-information") ] [
                                 span [ class "icon" ] [
-                                    i [ class "fa fa-home" ] []
+                                    i [ class "fa fa-map-o" ] []
                                 ],
-                                span [] [ text "Warehouse" ] 
+                                span [] [ text "TrackingInformation" ] 
+                            ]
+                        ],
+                        li [ class (getActiveClass model.currentPage "ReportParcel") ] [ 
+                            a [ onClick (Msg.LinkTo "#report-parcel") ] [
+                                 span [ class "icon" ] [
+                                    i [ class "fa fa-bullseye" ] []
+                                ],
+                                span [] [ text "ReportParcel" ] 
                             ]
                         ]
                     ]
@@ -72,10 +77,10 @@ renderPage model =
     let
         pageContent =
             case model.currentPage of
-                Model.Home ->
+                Model.TrackingInformation ->
                     text "Home"
 
-                Model.Login ->
+                Model.ReportParcel ->
                     text "Login"
 
                 Model.Parcel ->

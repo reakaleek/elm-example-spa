@@ -6,11 +6,12 @@ import Msg exposing (Msg)
 import Warehouse.Model exposing (Model)
 import Parcel.Model exposing (Model)
 import Warehouse.Command exposing (fetchWarehouse)
+
 route : Parser (Model.Page -> a) a
 route =
     oneOf
-        [ UrlParser.map Model.Home (UrlParser.s "home")
-        , UrlParser.map Model.Login (UrlParser.s "login")
+        [ UrlParser.map Model.TrackingInformation (UrlParser.s "tracking-information")
+        , UrlParser.map Model.ReportParcel (UrlParser.s "report-parcel")
         , UrlParser.map Model.Parcel (UrlParser.s "parcel")
         , UrlParser.map Model.Warehouse (UrlParser.s "warehouse")
         ]
@@ -26,7 +27,7 @@ init location =
         page =
             case parseHash route location of
                 Nothing ->
-                    Model.Home
+                    Model.Warehouse
                 Just page ->
                     page
     in

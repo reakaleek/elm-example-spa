@@ -51,7 +51,7 @@ module.exports = {
     stats: { colors: true },
     proxy: {
       '/api': {
-        target: 'http://localhost:52878',
+        target: 'http://best-parcel-logistics.azurewebsites.net',
         secure: false
       }
     }
