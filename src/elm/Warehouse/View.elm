@@ -9,7 +9,7 @@ view: Model -> Html Msg
 view model =
     div[] [
         div [ class "field" ] [
-            p [ class "control" ] [
+            p [ class ("control " ++ loadingClass model.getIsLoading) ] [
                 textarea [ value model.warehouse, class "textarea", rows 12, onInput Warehouse.Msg.Change ] []
             ]
         ],
@@ -18,7 +18,7 @@ view model =
         ],
         div [ class "field is-grouped" ] [
             p [ class "control" ] [ 
-                button [ class "button is-success is-outlined", onClick Warehouse.Msg.PostWarehouse ] [
+                button [ class ("button is-success " ++ loadingClass model.postIsLoading), onClick Warehouse.Msg.PostWarehouse ] [
                     span [ class "icon"] [
                         i [ class "fa fa-floppy-o" ] []
                     ],
@@ -28,7 +28,7 @@ view model =
                 ]
             ],
             p [ class "control" ] [ 
-                button [ class "button is-info is-outlined", onClick Warehouse.Msg.GetWarehouse ] [
+                button [ class ("button is-info " ++ loadingClass model.getIsLoading), onClick Warehouse.Msg.GetWarehouse ] [
                     span [ class "icon"] [
                         i [ class "fa fa-refresh" ] []
                     ],
@@ -39,3 +39,7 @@ view model =
             ]
         ]
     ]
+
+loadingClass: Bool -> String
+loadingClass isLoading =
+    if isLoading then "is-loading" else ""

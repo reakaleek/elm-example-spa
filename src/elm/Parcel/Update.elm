@@ -8,9 +8,9 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Parcel.Msg.PostParcel ->
-            (model, postParcel model.parcel)
+            ({ model | isLoading = True }, postParcel model.parcel)
         Parcel.Msg.OnPostResponse response ->
-            maybeTrackingId response model
+            maybeTrackingId response { model | isLoading = False }
         Parcel.Msg.Weight weight ->
             ( model |> setWeight weight, Cmd.none)
         Parcel.Msg.FirstName firstName ->
@@ -30,11 +30,11 @@ maybeTrackingId response model =
         RemoteData.NotAsked ->
             ({ model | response = "" }, Cmd.none)
         RemoteData.Loading ->
-            ({ model | response = "Loading.." }, Cmd.none)
+            ({ model | response = "Loading.."} , Cmd.none)
         RemoteData.Success response ->
             ({ model | response = response.trackingId }, Cmd.none)
         RemoteData.Failure error ->
-            ({ model | response = (toString error)}, Cmd.none)
+            ({ model | response = (toString error) }, Cmd.none)
 
 
 setWeight: String -> Model -> Model

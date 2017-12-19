@@ -6,11 +6,12 @@ import Json.Decode.Pipeline as Pipeline exposing (decode, required)
 type alias Model =
     { parcel : Parcel
     , response : String
+    , isLoading : Bool
     }
 
 initModel : Model
 initModel =
-    Model (Parcel 0 (Receipient "" "" "" "" "")) ""
+    Model (Parcel 0 (Receipient "" "" "" "" "")) "" False
 
 
 type alias TrackingId = 

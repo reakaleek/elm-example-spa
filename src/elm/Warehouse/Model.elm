@@ -6,14 +6,16 @@ import Json.Encode as Encode exposing (Value)
 type alias Model =
     { warehouse: String
     , response: String
-    , isLoading: Bool
+    , getIsLoading: Bool
+    , postIsLoading: Bool
     }
 
 initModel : Model
 initModel = 
-    { warehouse = "Loading.."
+    { warehouse = ""
     , response = ""
-    , isLoading = True
+    , getIsLoading = True
+    , postIsLoading = False
     }
 
 type alias Warehouse =

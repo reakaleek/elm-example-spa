@@ -9,13 +9,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Msg.GetWarehouse ->
-            (model, fetchWarehouse)
+            ({ model | getIsLoading = True }, fetchWarehouse)
         Msg.OnFetchWarehouse warehouse ->
-            maybeWarehouseResponse warehouse model
+            maybeWarehouseResponse warehouse { model | getIsLoading = False }
         Msg.OnResponse response ->
-            maybePostResponse response model
+            maybePostResponse response { model | postIsLoading = False }
         Msg.PostWarehouse ->
-            (model, postWarehouse model.warehouse)
+            ({ model | postIsLoading = True }, postWarehouse model.warehouse)
         Msg.Change newContent ->
             ({model | warehouse = newContent}, Cmd.none)
 
