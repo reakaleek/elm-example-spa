@@ -8,3 +8,13 @@
         color: #363636;
     }
 }
+
+.tags.has-addons {
+    margin-bottom: 0.5rem;
+    .tag:first-child { 
+        min-width: 5rem;
+        &+.tag {
+            min-width: 20rem;
+        }
+    }
+}

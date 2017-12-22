@@ -2,7 +2,8 @@ module Parcel.Update exposing (..)
 import Parcel.Model exposing (Model, TrackingId, Parcel)
 import Parcel.Msg exposing (Msg)
 import Parcel.Command exposing (postParcel)
-import RemoteData exposing (WebData)
+import RemoteData exposing (..)
+import Http exposing (..)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -34,8 +35,16 @@ maybeTrackingId response model =
         RemoteData.Success response ->
             ({ model | response = response.trackingId }, Cmd.none)
         RemoteData.Failure error ->
-            ({ model | response = (toString error) }, Cmd.none)
+            ({ model | response = (getErrorMsg error) }, Cmd.none)
 
+
+getErrorMsg : Error -> String
+getErrorMsg error =
+    case error of
+        Http.BadStatus response ->
+            response.body
+        _ ->
+            "An error occured."            
 
 setWeight: String -> Model -> Model
 setWeight value model =

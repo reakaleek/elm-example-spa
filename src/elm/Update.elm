@@ -3,8 +3,8 @@ import Model exposing (Model)
 import Msg exposing (Msg)
 import Navigation exposing (newUrl)
 import Warehouse.Update exposing (update)
-import Warehouse.Command exposing (fetchWarehouse)
 import Parcel.Update exposing (update)
+import Tracking.Update exposing (update)
 import Router exposing (initalPageCmd)
 
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
@@ -14,10 +14,8 @@ update msg model =
             case maybepage of
                 Nothing ->
                     ( { model | currentPage = Model.Warehouse }, Cmd.none )
-
                 Just page ->                        
                     ({ model | currentPage = page }, initalPageCmd page)
-
         Msg.LinkTo path ->
             ( model, newUrl path )
         Msg.WarehouseMsg subMsg ->
@@ -32,3 +30,9 @@ update msg model =
                     Parcel.Update.update subMsg model.parcel
             in
                 ({ model | parcel = newModel}, Cmd.map Msg.ParcelMsg newCmd)
+        Msg.TrackingMsg subMsg ->
+            let
+                (newModel, newCmd) =
+                    Tracking.Update.update subMsg model.tracking
+            in
+                ({ model | tracking = newModel }, Cmd.map Msg.TrackingMsg newCmd)

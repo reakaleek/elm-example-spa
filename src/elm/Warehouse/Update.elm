@@ -3,7 +3,7 @@ import Warehouse.Model as Model exposing (Model, warehouseToString)
 import Warehouse.Msg as Msg exposing (Msg)
 import Warehouse.Command as Command exposing (fetchWarehouse, postWarehouse)
 import RemoteData exposing (WebData)
-
+import Http exposing (..)
 update : Msg -> Model -> ( Model, Cmd Msg )
 
 update msg model =
@@ -29,7 +29,7 @@ maybeWarehouseResponse response  model =
         RemoteData.Success warehouse ->
             ({ model | warehouse =  warehouseToString warehouse }, Cmd.none)
         RemoteData.Failure error ->
-            ({ model | response = (toString error)}, Cmd.none)
+            ({ model | response = getErrorMsg error}, Cmd.none)
             
 maybePostResponse : WebData String -> Model -> (Model, Cmd Msg)
 maybePostResponse response  model =
@@ -41,4 +41,12 @@ maybePostResponse response  model =
         RemoteData.Success response ->
             ({ model | response = response }, Cmd.none)
         RemoteData.Failure error ->
-            ({ model | response = (toString error)}, Cmd.none)
+            ({ model | response = getErrorMsg error }, Cmd.none)
+
+getErrorMsg : Error -> String
+getErrorMsg error =
+    case error of
+        Http.BadStatus response ->
+            response.body
+        _ ->
+            "An error occured."   

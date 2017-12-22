@@ -6,6 +6,8 @@ import Msg exposing (Msg)
 import Model exposing (Model, Page)
 import Warehouse.View exposing (view)
 import Parcel.View exposing (view)
+import Tracking.View exposing (view)
+import Model as Page exposing (Page)
 
 view : Model -> Html Msg
 view model =
@@ -17,53 +19,52 @@ view model =
 renderHeader : Model -> Html Msg
 renderHeader model =
     header [ class "main-header" ] [
-        div [ class "hero is-dark" ] [ 
-            div [ class "hero-body" ] [
-                h1 [ class "title has-text-centered" ] [
-                    span [] [ text "Parcel " ],
-                    span [ class "icon" ] [ i [ class "fa fa-ship"] [] ],
-                    span [] [ text " Logistics" ]
-                ]
-            ],
-            div [ class "hero-foot"] [
-                div [ class "tabs is-centered is-boxed" ] [ 
-                    ul [] [ 
-                        li [ class (getActiveClass model.currentPage "Warehouse") ] [
-                            a [ onClick (Msg.LinkTo "#warehouse") ] [
-                                span [ class "icon" ] [
-                                    i [ class "fa fa-home" ] []
-                                ],
-                                span [] [ text "Warehouse" ] 
-                            ]
-                        ],
-                        li [ class (getActiveClass model.currentPage "Parcel") ] [
-                            a [ onClick (Msg.LinkTo "#parcel") ] [
-                                 span [ class "icon" ] [
-                                    i [ class "fa fa-cube" ] []
-                                ],
-                                span [] [ text "Parcel" ] 
-                            ] 
-                        ],
-                        li [ class (getActiveClass model.currentPage "TrackingInformation") ] [
-                            a [ onClick (Msg.LinkTo "#tracking-information") ] [
-                                span [ class "icon" ] [
-                                    i [ class "fa fa-map-o" ] []
-                                ],
-                                span [] [ text "TrackingInformation" ] 
-                            ]
-                        ],
-                        li [ class (getActiveClass model.currentPage "ReportParcel") ] [ 
-                            a [ onClick (Msg.LinkTo "#report-parcel") ] [
-                                 span [ class "icon" ] [
-                                    i [ class "fa fa-bullseye" ] []
-                                ],
-                                span [] [ text "ReportParcel" ] 
-                            ]
-                        ]
-                    ]
-                ]
+        renderHero model
+    ]
+
+renderHero : Model -> Html Msg
+renderHero model =
+    div [ class "hero is-dark" ] [ 
+            renderHeroBody,
+            renderHeroFoot model
+        ]
+
+renderHeroBody : Html Msg
+renderHeroBody =
+    div [ class "hero-body" ] [
+        h1 [ class "title has-text-centered" ] [
+            span [] [ text "Parcel " ],
+            span [ class "icon" ] [ i [ class "fa fa-ship"] [] ],
+            span [] [ text " Logistics" ]
+        ]
+    ]
+
+renderHeroFoot : Model -> Html Msg
+renderHeroFoot model =
+    div [ class "hero-foot"] [
+        div [ class "tabs is-centered is-boxed" ] [ 
+            ul [] [ 
+                tabItem model.currentPage Page.Warehouse "#warehouse" "fa-home" "Warehouse",
+                tabItem model.currentPage Page.Parcel "#parcel" "fa-cube" "Parcel",
+                tabItem model.currentPage Page.TrackingInformation "#tracking-information" "fa-map-o" "Tracking Information",
+                tabItem model.currentPage Page.ReportParcel "#report-parcel" "fa-bullseye" "Report Parcel"
             ]
         ]
+    ]
+
+tabItem : Page -> a -> String -> String -> String -> Html Msg
+tabItem currentPage page url icon txt =
+    li [ class (getActiveClass currentPage (toString page)) ] [ 
+        a [ onClick (Msg.LinkTo url) ] [
+            faIcon icon,
+            span [] [ text txt ] 
+        ]
+    ]
+
+faIcon : String -> Html Msg
+faIcon faClass =
+    span [ class "icon" ] [
+        i [ class ("fa " ++ faClass) ] []
     ]
 
 getActiveClass: Model.Page -> String -> String
@@ -78,7 +79,8 @@ renderPage model =
         pageContent =
             case model.currentPage of
                 Model.TrackingInformation ->
-                    text "Home"
+                    Tracking.View.view model.tracking
+                        |> Html.map Msg.TrackingMsg
 
                 Model.ReportParcel ->
                     text "Login"
@@ -86,6 +88,7 @@ renderPage model =
                 Model.Parcel ->
                     Parcel.View.view model.parcel
                         |> Html.map Msg.ParcelMsg
+
                 Model.Warehouse ->
                     Warehouse.View.view model.warehouse
                         |> Html.map Msg.WarehouseMsg
