@@ -1,28 +1,28 @@
 module Parcel.Update exposing (..)
-import Parcel.Model exposing (Model, TrackingId, Parcel)
-import Parcel.Msg exposing (Msg)
-import Parcel.Command exposing (postParcel)
+import Parcel.Model as Model exposing (Model, TrackingId, Parcel)
+import Parcel.Msg as Msg exposing (Msg)
+import Parcel.Command as Command exposing (postParcel)
 import RemoteData exposing (..)
 import Http exposing (..)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        Parcel.Msg.PostParcel ->
+        Msg.PostParcel ->
             ({ model | isLoading = True }, postParcel model.parcel)
-        Parcel.Msg.OnPostResponse response ->
+        Msg.OnPostResponse response ->
             maybeTrackingId response { model | isLoading = False }
-        Parcel.Msg.Weight weight ->
+        Msg.Weight weight ->
             ( model |> setWeight weight, Cmd.none)
-        Parcel.Msg.FirstName firstName ->
+        Msg.FirstName firstName ->
             ( model |> setFirstName firstName, Cmd.none)
-        Parcel.Msg.LastName lastName ->
+        Msg.LastName lastName ->
             ( model |> setLastName lastName, Cmd.none)
-        Parcel.Msg.Street street ->
+        Msg.Street street ->
             ( model |> setStreet street, Cmd.none)
-        Parcel.Msg.City city ->
+        Msg.City city ->
             ( model |> setCity city, Cmd.none)
-        Parcel.Msg.PostalCode postalCode ->
+        Msg.PostalCode postalCode ->
             ( model |> setPostalCode postalCode, Cmd.none)
 
 maybeTrackingId : WebData TrackingId -> Model -> (Model, Cmd Msg)

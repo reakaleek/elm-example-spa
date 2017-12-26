@@ -60,7 +60,6 @@ warehouseEncodeObject warehouse =
         [ "code" => Encode.string warehouse.code
         , "description" => Encode.string warehouse.description
         , "duration" => Encode.float warehouse.duration
-        {- "nextHops" => ???? -}
         , "nextHops" => Encode.list (List.map warehouseEncodeObject (getWarehouseList warehouse.nextHops)) 
         , "trucks" => Encode.list (List.map truckEncodeObject warehouse.trucks)
         ]

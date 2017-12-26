@@ -26,7 +26,7 @@ inputField : String -> String -> String -> (String -> Msg) -> Html Msg
 inputField inputType placeholdr val msg =
     div [ class "field" ] [
         div [ class "control" ] [
-            input [ class "input", type_ inputType, value val, onInput msg, placeholder placeholdr ] []
+            input [ class "input", type_ inputType, onInput msg, placeholder placeholdr ] []
         ]
     ]
 
