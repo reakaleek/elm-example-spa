@@ -1,7 +1,9 @@
 module Parcel.Model exposing (..)
-import Json.Decode as Decode exposing(Decoder)
+
+import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Json.Decode.Pipeline as Pipeline exposing (decode, required)
+
 
 type alias Model =
     { parcel : Parcel
@@ -9,32 +11,36 @@ type alias Model =
     , isLoading : Bool
     }
 
+
 initModel : Model
 initModel =
     Model (Parcel 0 (Receipient "" "" "" "" "")) "" False
 
 
-type alias TrackingId = 
+type alias TrackingId =
     { trackingId : String
     }
 
+
 type alias Receipient =
-   { firstName : String
-   , lastName : String
-   , street : String
-   , postalCode : String
-   , city : String
-   } 
+    { firstName : String
+    , lastName : String
+    , street : String
+    , postalCode : String
+    , city : String
+    }
+
 
 type alias Parcel =
     { weight : Float
-    , receipient: Receipient
+    , receipient : Receipient
     }
 
 
 trackingIdDecoder : Decoder TrackingId
-trackingIdDecoder = decode TrackingId
-    |> required "trackingId" Decode.string
+trackingIdDecoder =
+    decode TrackingId
+        |> required "trackingId" Decode.string
 
 
 receipientDecoder : Decoder Receipient
@@ -53,6 +59,7 @@ parcelDecoder =
         |> required "weight" Decode.float
         |> required "receipient" receipientDecoder
 
+
 receipientEncodeObject : Receipient -> Encode.Value
 receipientEncodeObject receipient =
     Encode.object
@@ -61,7 +68,8 @@ receipientEncodeObject receipient =
         , "street" => Encode.string receipient.street
         , "postalCode" => Encode.string receipient.postalCode
         , "city" => Encode.string receipient.city
-         ]
+        ]
+
 
 parcelEncodeObject : Parcel -> Encode.Value
 parcelEncodeObject parcel =
@@ -70,9 +78,11 @@ parcelEncodeObject parcel =
         , "receipient" => receipientEncodeObject parcel.receipient
         ]
 
-parcelToString: Parcel -> String
-parcelToString parcel = 
+
+parcelToString : Parcel -> String
+parcelToString parcel =
     Encode.encode 4 (parcelEncodeObject parcel)
+
 
 (=>) : a -> b -> ( a, b )
 (=>) =

@@ -1,4 +1,5 @@
 module Tracking.Command exposing (..)
+
 import Tracking.Model as Model exposing (Model, TrackingInformation, trackingInformationDecoder, trackingInformationToJson)
 import Tracking.Msg as Msg exposing (Msg)
 import Http exposing (..)

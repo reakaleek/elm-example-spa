@@ -1,4 +1,5 @@
 module Update exposing (..)
+
 import Model exposing (Model)
 import Msg exposing (Msg)
 import Navigation exposing (newUrl)
@@ -7,6 +8,7 @@ import Parcel.Update exposing (update)
 import Tracking.Update exposing (update)
 import Router exposing (initalPageCmd)
 
+
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
 update msg model =
     case msg of
@@ -14,25 +16,30 @@ update msg model =
             case maybepage of
                 Nothing ->
                     ( { model | currentPage = Model.Warehouse }, Cmd.none )
-                Just page ->                        
-                    ({ model | currentPage = page }, initalPageCmd page)
+
+                Just page ->
+                    ( { model | currentPage = page }, initalPageCmd page )
+
         Msg.LinkTo path ->
             ( model, newUrl path )
+
         Msg.WarehouseMsg subMsg ->
-            let 
-                (newModel, newCmd) =
+            let
+                ( newModel, newCmd ) =
                     Warehouse.Update.update subMsg model.warehouse
             in
-                ({ model | warehouse = newModel}, Cmd.map Msg.WarehouseMsg newCmd)
+                ( { model | warehouse = newModel }, Cmd.map Msg.WarehouseMsg newCmd )
+
         Msg.ParcelMsg subMsg ->
             let
-                (newModel, newCmd) =
+                ( newModel, newCmd ) =
                     Parcel.Update.update subMsg model.parcel
             in
-                ({ model | parcel = newModel}, Cmd.map Msg.ParcelMsg newCmd)
+                ( { model | parcel = newModel }, Cmd.map Msg.ParcelMsg newCmd )
+
         Msg.TrackingMsg subMsg ->
             let
-                (newModel, newCmd) =
+                ( newModel, newCmd ) =
                     Tracking.Update.update subMsg model.tracking
             in
-                ({ model | tracking = newModel }, Cmd.map Msg.TrackingMsg newCmd)
+                ( { model | tracking = newModel }, Cmd.map Msg.TrackingMsg newCmd )

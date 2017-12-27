@@ -1,9 +1,11 @@
 module Parcel.Msg exposing (..)
+
 import RemoteData exposing (WebData)
 import Parcel.Model as Model exposing (TrackingId)
 
-type Msg 
-    = OnPostResponse (WebData TrackingId) 
+
+type Msg
+    = OnPostResponse (WebData TrackingId)
     | PostParcel
     | Weight String
     | FirstName String
