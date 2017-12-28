@@ -12,12 +12,18 @@ view : Model -> Html Msg
 view model =
     div []
         [ h2 [ class "title has-text-centered" ] [ text model.response ]
-        , inputField "number" "Weight" (toString model.parcel.weight) Msg.Weight
-        , inputField "text" "Firstname" model.parcel.receipient.firstName Msg.FirstName
-        , inputField "text" "Lastname" model.parcel.receipient.lastName Msg.LastName
-        , inputField "text" "Street" model.parcel.receipient.street Msg.Street
-        , inputField "text" "Postal code" model.parcel.receipient.postalCode Msg.PostalCode
-        , inputField "text" "City" model.parcel.receipient.city Msg.City
+        , div [ class "columns" ]
+            [ div [ class "column is-6" ]
+                [ inputField "number" "Weight" (toString model.parcel.weight) Msg.Weight
+                , inputField "text" "Firstname" model.parcel.receipient.firstName Msg.FirstName
+                , inputField "text" "Lastname" model.parcel.receipient.lastName Msg.LastName
+                ]
+            , div [ class "column is-6" ]
+                [ inputField "text" "Street" model.parcel.receipient.street Msg.Street
+                , inputField "text" "Postal code" model.parcel.receipient.postalCode Msg.PostalCode
+                , inputField "text" "City" model.parcel.receipient.city Msg.City
+                ]
+            ]
         , button [ class ("button is-success " ++ loadingClass model.isLoading), onClick Msg.PostParcel ] [ text "Post Parcel" ]
         ]
 

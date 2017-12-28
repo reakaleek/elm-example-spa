@@ -18,3 +18,8 @@ type Page
     | ReportParcel
     | Parcel
     | Warehouse
+
+
+initModel : Page -> Model
+initModel page =
+    Model page Warehouse.initModel Parcel.initModel Tracking.initModel

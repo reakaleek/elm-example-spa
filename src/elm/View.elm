@@ -89,18 +89,18 @@ renderPage model =
     let
         pageContent =
             case model.currentPage of
-                Model.TrackingInformation ->
+                Page.TrackingInformation ->
                     Tracking.View.view model.tracking
                         |> Html.map Msg.TrackingMsg
 
-                Model.ReportParcel ->
+                Page.ReportParcel ->
                     text "Login"
 
-                Model.Parcel ->
+                Page.Parcel ->
                     Parcel.View.view model.parcel
                         |> Html.map Msg.ParcelMsg
 
-                Model.Warehouse ->
+                Page.Warehouse ->
                     Warehouse.View.view model.warehouse
                         |> Html.map Msg.WarehouseMsg
     in

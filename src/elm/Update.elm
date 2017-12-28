@@ -1,6 +1,7 @@
 module Update exposing (..)
 
 import Model exposing (Model)
+import Model as Page exposing (Page)
 import Msg exposing (Msg)
 import Navigation exposing (newUrl)
 import Warehouse.Update exposing (update)
@@ -15,7 +16,7 @@ update msg model =
         Msg.GoTo maybepage ->
             case maybepage of
                 Nothing ->
-                    ( { model | currentPage = Model.Warehouse }, Cmd.none )
+                    ( { model | currentPage = Page.Warehouse }, Cmd.none )
 
                 Just page ->
                     ( { model | currentPage = page }, initalPageCmd page )
