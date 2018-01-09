@@ -9,8 +9,8 @@ view: Model -> Html Msg
 view model = 
     div [] [
          h2 [ class "title has-text-centered" ] [ text model.response ]
-        , inputField "text" "TrackingId" model.reportparcel.trackingid Msg.TrackingId
-        , inputField "text" "TrackingCode" model.reportparcel.trackingcode Msg.TrackingCode
+        , inputField "text" "TrackingId" model.reportParcel.trackingId Msg.TrackingId
+        , inputField "text" "TrackingCode" model.reportParcel.trackingCode Msg.TrackingCode
         , button [ class ("button is-success " ++ loadingClass model.isLoading), onClick Msg.PostReportParcel ] [ text "Report Parcel" ]
     ]
 

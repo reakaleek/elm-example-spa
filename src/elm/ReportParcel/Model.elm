@@ -11,7 +11,7 @@ type alias Model =
 
 initModel : Model
 initModel =
-    Model (TrackingId "" TrackingCode "")
+    Model ( ReportParcel "" "") "" False
 
 
 type alias ReportParcel = 
@@ -20,8 +20,13 @@ type alias ReportParcel =
         trackingCode: String
     }
 
-trackingIdDecoder: Decoder ReportParcel
-trackingIdDecoder = decode TrackingId
+type alias Response = 
+    {
+
+        }
+
+responseDecoder: Decoder ReportParcel
+responseDecoder = decode ReportParcel
     |> required "trackingId" Decode.string
     |> required "trackingCode" Decode.string
 
@@ -29,13 +34,14 @@ reportParcelEncodeObject: ReportParcel -> Encode.Value
 reportParcelEncodeObject reportParcel =
     Encode.object
         [
-            "trackingId" => Encode.string trackingId
-            ,"trackingCode" => Encode.string trackingCode
+            "trackingId" => Encode.string reportParcel.trackingId
+            ,"trackingCode" => Encode.string reportParcel.trackingCode
         ]
 
-parcelReportToString: ReportParcel -> String 
-parcelReportToString reportParcel =
+reportParcelToString: ReportParcel -> String 
+reportParcelToString reportParcel =
     Encode.encode 4 (reportParcelEncodeObject reportParcel)
+
 
 (=>) : a -> b -> ( a, b )
 (=>) =

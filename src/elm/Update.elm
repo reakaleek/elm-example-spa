@@ -5,6 +5,7 @@ import Navigation exposing (newUrl)
 import Warehouse.Update exposing (update)
 import Warehouse.Command exposing (fetchWarehouse)
 import Parcel.Update exposing (update)
+import ReportParcel.Update exposing (update)
 import Router exposing (initalPageCmd)
 
 update : Msg.Msg -> Model -> ( Model, Cmd Msg.Msg )
@@ -32,3 +33,9 @@ update msg model =
                     Parcel.Update.update subMsg model.parcel
             in
                 ({ model | parcel = newModel}, Cmd.map Msg.ParcelMsg newCmd)
+        Msg.ReportParcelMsg subMsg ->
+            let
+                (newModel, newCmd) =
+                    ReportParcel.Update.update subMsg model.reportParcel
+            in
+                ({ model | reportParcel = newModel}, Cmd.map Msg.ReportParcelMsg newCmd)

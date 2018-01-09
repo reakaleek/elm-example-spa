@@ -6,6 +6,7 @@ import Msg exposing (Msg)
 import Model exposing (Model, Page)
 import Warehouse.View exposing (view)
 import Parcel.View exposing (view)
+import ReportParcel.View exposing (view)
 
 view : Model -> Html Msg
 view model =
@@ -81,7 +82,8 @@ renderPage model =
                     text "Home"
 
                 Model.ReportParcel ->
-                    text "Login"
+                    ReportParcel.View.view model.reportParcel
+                        |> Html.map Msg.ReportParcelMsg
 
                 Model.Parcel ->
                     Parcel.View.view model.parcel

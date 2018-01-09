@@ -1,4 +1,4 @@
-module ReportPacel.Update exposing (..)
+module ReportParcel.Update exposing (..)
 import ReportParcel.Model exposing (Model, ReportParcel)
 import ReportParcel.Msg exposing (Msg)
 import ReportParcel.Command exposing (postReportParcel)

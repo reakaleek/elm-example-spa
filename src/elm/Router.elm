@@ -5,6 +5,7 @@ import Model exposing (Model)
 import Msg exposing (Msg)
 import Warehouse.Model exposing (Model)
 import Parcel.Model exposing (Model)
+import ReportParcel.Model exposing (Model)
 import Warehouse.Command exposing (fetchWarehouse)
 
 route : Parser (Model.Page -> a) a
@@ -31,7 +32,7 @@ init location =
                 Just page ->
                     page
     in
-        ( Model.Model page Warehouse.Model.initModel Parcel.Model.initModel, initalPageCmd page )
+        ( Model.Model page Warehouse.Model.initModel Parcel.Model.initModel ReportParcel.Model.initModel, initalPageCmd page )
 
 initalPageCmd : Model.Page -> Cmd Msg.Msg
 initalPageCmd page =
