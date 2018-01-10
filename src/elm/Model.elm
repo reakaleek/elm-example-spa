@@ -11,7 +11,7 @@ type alias Model =
     , warehouse : Warehouse.Model
     , parcel : Parcel.Model
     , tracking : Tracking.Model
-    , reportParcel: ReportParcel.Model
+    , reportParcel : ReportParcel.Model
     }
 
 
@@ -20,6 +20,7 @@ type Page
     | ReportParcel
     | Parcel
     | Warehouse
+
 
 initModel : Page -> Model
 initModel page =

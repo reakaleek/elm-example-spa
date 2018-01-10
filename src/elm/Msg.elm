@@ -14,4 +14,3 @@ type Msg
     | ParcelMsg Parcel.Msg
     | TrackingMsg Tracking.Msg
     | ReportParcelMsg ReportParcel.Msg
-

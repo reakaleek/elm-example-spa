@@ -48,8 +48,7 @@ update msg model =
 
         Msg.ReportParcelMsg subMsg ->
             let
-                (newModel, newCmd) =
+                ( newModel, newCmd ) =
                     ReportParcel.Update.update subMsg model.reportParcel
             in
-                ({ model | reportParcel = newModel}, Cmd.map Msg.ReportParcelMsg newCmd)
-
+                ( { model | reportParcel = newModel }, Cmd.map Msg.ReportParcelMsg newCmd )

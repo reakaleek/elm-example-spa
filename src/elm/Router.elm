@@ -5,12 +5,9 @@ import UrlParser exposing (..)
 import Model exposing (Model)
 import Model as Page exposing (Page)
 import Msg exposing (Msg)
-<<<<<<< HEAD
-=======
 import Warehouse.Model exposing (Model)
 import Parcel.Model exposing (Model)
 import ReportParcel.Model exposing (Model)
->>>>>>> reportparcel
 import Warehouse.Command exposing (fetchWarehouse)
 
 
@@ -41,7 +38,6 @@ init location =
                 Just page ->
                     page
     in
-
         ( Model.initModel page, initalPageCmd page )
 
 

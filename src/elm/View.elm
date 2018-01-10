@@ -7,13 +7,10 @@ import Msg exposing (Msg)
 import Model exposing (Model, Page)
 import Warehouse.View exposing (view)
 import Parcel.View exposing (view)
-<<<<<<< HEAD
 import Tracking.View exposing (view)
 import Model as Page exposing (Page)
-
-=======
 import ReportParcel.View exposing (view)
->>>>>>> reportparcel
+
 
 view : Model -> Html Msg
 view model =
