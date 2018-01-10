@@ -3,9 +3,10 @@ import ReportParcel.Model as Model exposing (Model, ReportParcel, responseDecode
 import ReportParcel.Msg as Msg exposing (Msg)
 import Http exposing (..)
 import RemoteData
+import Json.Decode as Decode
 
-postReportParcel : String -> Cmd Msg 
+postReportParcel : ReportParcel -> Cmd Msg 
 postReportParcel reportParcel = 
-    Http.post ("http://best-parcel-logistics.azurewebsites.net/api/reportparcel/" ++ reportParcel.trackingId ++ "/reportHop/" ++ reportParcel.trackingCode) responseDecoder
+    Http.post ("http://best-parcel-logistics.azurewebsites.net/api/parcel/" ++ reportParcel.trackingId ++ "/reportHop/" ++ reportParcel.trackingCode) Http.emptyBody Decode.string
         |> RemoteData.sendRequest
         |> Cmd.map Msg.OnPostResponse

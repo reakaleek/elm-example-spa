@@ -3,7 +3,7 @@ import RemoteData exposing (WebData)
 import ReportParcel.Model as ReportParcel exposing (Model)
 
 type Msg
-    = OnPostResponse (WebData ReportParcel.Response)
+    = OnPostResponse (WebData String)
     | PostReportParcel
     | TrackingId String
     | TrackingCode String

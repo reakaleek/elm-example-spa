@@ -8,8 +8,8 @@ update: Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of 
         ReportParcel.Msg.PostReportParcel ->
-            ({ model | isLoading = True }, postReportParcel model.reportparcel)
-        ReportParcel.Msg.OnPostResponse ->
+            ({ model | isLoading = True }, postReportParcel model.reportParcel)
+        ReportParcel.Msg.OnPostResponse  response ->
             maybeSuccess response { model | isLoading = False }
         ReportParcel.Msg.TrackingId trackingId ->
             (model |> setTrackingId trackingId, Cmd.none)
@@ -19,7 +19,7 @@ update msg model =
 maybeSuccess: WebData String -> Model -> (Model, Cmd Msg)
 maybeSuccess response model = 
     case response of 
-        RemoteData.NotASked ->
+        RemoteData.NotAsked ->
             ({ model | response = "" }, Cmd.none)
         RemoteData.Loading ->
             ({ model | response = "Loading .."}, Cmd.none)
@@ -36,6 +36,15 @@ setTrackingId value model =
         newTrackingId = value
         reportParcel = { oldReportParcel | trackingId = newTrackingId }
     in
-        { model | reportparcel = reportparcel }
+        { model | reportParcel = reportParcel }
+
+setTrackingCode: String -> Model -> Model
+setTrackingCode value model =
+    let 
+        oldReportParcel = model.reportParcel
+        newTrackingCode = value
+        reportParcel = { oldReportParcel | trackingCode = newTrackingCode }
+    in 
+        { model | reportParcel = reportParcel }
 
         

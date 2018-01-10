@@ -25,10 +25,8 @@ type alias Response =
 
         }
 
-responseDecoder: Decoder ReportParcel
-responseDecoder = decode ReportParcel
-    |> required "trackingId" Decode.string
-    |> required "trackingCode" Decode.string
+responseDecoder: Decoder Response
+responseDecoder = decode Response
 
 reportParcelEncodeObject: ReportParcel -> Encode.Value
 reportParcelEncodeObject reportParcel =
