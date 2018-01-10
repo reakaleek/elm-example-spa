@@ -7,6 +7,7 @@ import Navigation exposing (newUrl)
 import Warehouse.Update exposing (update)
 import Parcel.Update exposing (update)
 import Tracking.Update exposing (update)
+import ReportParcel.Update exposing (update)
 import Router exposing (initalPageCmd)
 
 
@@ -44,3 +45,11 @@ update msg model =
                     Tracking.Update.update subMsg model.tracking
             in
                 ( { model | tracking = newModel }, Cmd.map Msg.TrackingMsg newCmd )
+
+        Msg.ReportParcelMsg subMsg ->
+            let
+                (newModel, newCmd) =
+                    ReportParcel.Update.update subMsg model.reportParcel
+            in
+                ({ model | reportParcel = newModel}, Cmd.map Msg.ReportParcelMsg newCmd)
+

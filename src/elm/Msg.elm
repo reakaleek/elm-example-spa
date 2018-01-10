@@ -4,6 +4,7 @@ import Model exposing (Page)
 import Warehouse.Msg as Warehouse exposing (Msg)
 import Parcel.Msg as Parcel exposing (Msg)
 import Tracking.Msg as Tracking exposing (Msg)
+import ReportParcel.Msg as ReportParcel exposing (Msg)
 
 
 type Msg
@@ -12,3 +13,5 @@ type Msg
     | WarehouseMsg Warehouse.Msg
     | ParcelMsg Parcel.Msg
     | TrackingMsg Tracking.Msg
+    | ReportParcelMsg ReportParcel.Msg
+
